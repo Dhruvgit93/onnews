@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block body %}
+<div class="container mt-5">
+  <h2 style="color:white;">User Profile</h2>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="mb-3" style="color:white;" >
+        <p><strong>Username:</strong> {{user.username}}</p>
+      </div>
+      <div class="mb-3" style="color:white;">
+        <p><strong>Name:</strong> {{user.first_name}}</p>
+      </div>
+      <div class="mb-3" style="color:white;">
+        <p><strong>Email:</strong> {{user.email}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

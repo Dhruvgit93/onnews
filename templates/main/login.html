@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                {% if messages %}
+                {% for msg in messages %}
+                <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+                    <strong>{{msg}}</strong> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="card-header">
+                    <h2>Login<h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="row m-2">
+                            <a style="color:white">{{field.label_tag}}</a> {{field}}
+                        </div>
+                        {% if field.errors %}
+                        {% for error in field.errors %}
+                        <p class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation" style="color: #920c02;"></i>  {{error}}</p>
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        <button type="submit" class="btn btn-success m-2">Login</button>
+
+                        {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger"> <i class="fa-solid fa-triangle-exclamation" style="color: #920c02;"></i>  {{error}}</p>
+                        {% endfor %}
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

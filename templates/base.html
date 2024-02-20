@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ON-NEWS{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <style>
+        .cf{
+          background-color:black;
+          height:100vh;
+          position:absolute;
+          overflow:scroll;
+        }
+        .navbar-nav .nav-link {
+            color: white; 
+        }
+        .navbar-nav .nav-link.active {
+            color: red; 
+        }
+      .card{
+        background-color:darkred;
+      }
+      .card:hover{
+        background-color:coalgrey;
+      }
+      .btn-primary{
+        border:none;
+        border-radius:0;
+        background-color:black;
+      }
+      
+      .btn-primary:hover{
+        border:none;
+        border-radius:0;
+        background-color:black;
+        box-shadow:3px 3px 10px black;
+      }
+      .navbar-brand,.nav-link,.card-title,.card-text,.card-header,form{
+        color:white;
+      }
+      </style>
+      <div class="container-fluid m-0 p-0 cf">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light p-2 m-0 bg-dark w-100">
+        <div class="container-fluid ">
+          <a class="navbar-brand" href="{% url 'main:home' %}"> <i class="fa-regular fa-newspaper"></i> ON-NEWS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars-staggered" style="color: #ffffff;"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:blogpage' %}">News</a>
+              </li>
+              {% if user.is_staff %}
+              <li class="nav-item"> 
+                <a class="nav-link" aria-current="page" href="{% url 'main:home' %}">Home</a>
+            </li>
+            {% if user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:addeditor' %}">Editors</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:blog_add' %}">Blogs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:profile' %}">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">
+                  <form action="{% url 'main:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" style="border:none; background:none; color:white;">Logout</button>
+                  </form>
+                  </a>
+              </li>
+              {% endif %}
+              {% if not user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'main:login' %}">Login</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    {% block body %}
+    
+    {% endblock body %}
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+</body>
+</html>

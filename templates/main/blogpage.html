@@ -1,0 +1,24 @@
+{% extends 'main/home.html' %}
+{% load static %}
+{% block title %}News Blog{% endblock title %}
+<div class="container-fluid mt-4 w-100">
+    <div class="row">
+      {% if messages %}
+      {% for msg in messages %}
+      {% if msg.tags == "success" %}
+      <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+        <strong><i class="fa-solid fa-circle-check" style="color: #082b0c;"></i></strong> {{msg}}
+        {% elif msg.tags == "warning" %}
+        <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+          <strong><i class="fa-solid fa-circle-minus" style="color: #70600f;"></i></strong> {{msg}}
+          {% elif msg.tags == "error" %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong><i class="fa-solid fa-right-from-bracket" style="color: #830b02;"></i></i></strong> {{msg}}
+          {% endif %}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>  
+{% block admin %}{% endblock admin %}
